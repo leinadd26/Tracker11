@@ -629,14 +629,11 @@ function checkTodoOverflow() {
     const wrapper = document.querySelector('.todo-wrapper');
     if (!todoList || !wrapper) return;
 
-    const hasOverflow = todoList.scrollHeight > todoList.clientHeight + 10;
-    wrapper.classList.toggle('has-overflow', hasOverflow);
+    const hasOverflow = todoList.scrollHeight > todoList.clientHeight + 5;
+    const isAtBottom = todoList.scrollHeight - todoList.scrollTop - todoList.clientHeight < 20;
 
-    // Fade oben ausblenden wenn ganz nach oben gescrollt
-    const isAtBottom = todoList.scrollHeight - todoList.scrollTop - todoList.clientHeight < 15;
-    if (isAtBottom) {
-        wrapper.classList.remove('has-overflow');
-    }
+    // Show shadow only when there IS overflow AND user has NOT scrolled to the bottom
+    wrapper.classList.toggle('has-overflow', hasOverflow && !isAtBottom);
 }
 
 // Scroll-Events auf der Todo-Liste abhoeren
