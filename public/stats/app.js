@@ -147,9 +147,8 @@ function hoursToTimeStr(hours) {
   return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
 }
 function getRankImageSrc(rankName) {
-  // Pfad ggf. anpassen
   const file = RANK_IMAGE_MAP[rankName] || RANK_IMAGE_MAP.UNRANKED;
-  return `../FortniteRanks/${file}`;
+  return `../ranks/${file}`;
 }
 
 // =====================
@@ -552,7 +551,14 @@ function renderScreentime() {
   if (reqEl) {
     reqEl.innerHTML = SCREEN_RANKS.slice(0,-1).map(r => {
       const achieved = avg < r.maxAvg;
-      return `<div class="requirement-item ${achieved?'achieved':'locked'}"><span class="requirement-status">${achieved?'✅':'🔒'}</span><span class="requirement-name">${r.name}</span><span class="requirement-value">< ${formatHoursHM(r.maxAvg)}</span></div>`;
+      const isCurrent = r.name === rank.name;
+      const imgSrc = getRankImageSrc(r.name);
+      return `<div class="requirement-item ${achieved?'achieved':'locked'} ${isCurrent?'current-rank':''}">
+        <img class="requirement-rank-img" src="${imgSrc}" alt="${r.name}">
+        <span class="requirement-name">${r.name}</span>
+        <span class="requirement-value">${'<'} ${formatHoursHM(r.maxAvg)}</span>
+        <span class="requirement-status">${achieved?'✅':'🔒'}</span>
+      </div>`;
     }).join('');
   }
   if (dailyEl) {
@@ -582,11 +588,16 @@ function renderRoutine() {
   if (nextEl) nextEl.textContent = level>=10 ? 'Max Level' : `+${xpToNext} XP`;
 
   if (reqEl) {
-    reqEl.innerHTML = LEVELS.map(l => {
+    reqEl.innerHTML = `<div class="requirements-list">` + LEVELS.map(l => {
       const achieved = xp >= l.xpRequired;
       const current = l.level === level;
-      return `<div class="requirement-item ${achieved?'achieved':'locked'} ${current?'current':''}"><span class="requirement-status">${achieved?'✅':'🔒'}</span><span class="requirement-name">Lvl ${l.level}</span><span class="requirement-value">${l.xpRequired} XP</span></div>`;
-    }).join('');
+      return `<div class="requirement-item ${achieved?'achieved':'locked'} ${current?'current-rank':''}">
+        <span class="requirement-level-badge">${l.level}</span>
+        <span class="requirement-name">Level ${l.level}</span>
+        <span class="requirement-value">${l.xpRequired} XP</span>
+        <span class="requirement-status">${achieved?'✅':'🔒'}</span>
+      </div>`;
+    }).join('') + `</div>`;
   }
   if (dailyEl) {
     dailyEl.innerHTML = getLast14DaysXP().map(d => `<div class="daily-item"><span class="daily-date">${formatDateShort(d.date)}</span><span style="flex:1">${d.morning?'☀️':'○'} ${d.evening?'🌙':'○'}</span><span class="daily-value">+${d.xp}</span></div>`).join('');
