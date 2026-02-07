@@ -620,6 +620,35 @@ function setupModalLogic() {
     });
 }
 
+// =============================================================
+//  SCROLL-FADE: Erkennung ob die Todo-Liste scrollbar ist
+// =============================================================
+
+function checkTodoOverflow() {
+    const todoList = document.getElementById('todoList');
+    const wrapper = document.querySelector('.todo-wrapper');
+    if (!todoList || !wrapper) return;
+
+    const hasOverflow = todoList.scrollHeight > todoList.clientHeight + 10;
+    wrapper.classList.toggle('has-overflow', hasOverflow);
+
+    // Fade oben ausblenden wenn ganz nach oben gescrollt
+    const isAtBottom = todoList.scrollHeight - todoList.scrollTop - todoList.clientHeight < 15;
+    if (isAtBottom) {
+        wrapper.classList.remove('has-overflow');
+    }
+}
+
+// Scroll-Events auf der Todo-Liste abhoeren
+document.addEventListener('DOMContentLoaded', () => {
+    const todoList = document.getElementById('todoList');
+    if (todoList) {
+        todoList.addEventListener('scroll', checkTodoOverflow, { passive: true });
+        // Initial pruefen und bei Groessenaenderung
+        new ResizeObserver(checkTodoOverflow).observe(todoList);
+    }
+});
+
 // Auto-Sync alle 15 Sekunden
 setInterval(loadRoutinesFromSheets, 15000);
 

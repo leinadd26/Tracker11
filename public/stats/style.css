@@ -194,7 +194,16 @@ body {
 
 .rank-display, .level-display { display: flex; align-items: center; gap: 16px; }
 
-.rank-icon, .level-badge {
+.rank-icon {
+    width: 56px; height: 56px;
+    object-fit: contain;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    flex-shrink: 0;
+}
+
+.level-badge {
     width: 50px; height: 50px;
     object-fit: contain;
     border-radius: 50%;
@@ -321,12 +330,96 @@ body {
 .expandable.open .card-details { display: block; animation: slideDown 0.3s ease; }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-.daily-item, .requirement-item {
+.daily-item {
     display: flex; justify-content: space-between;
     padding: 10px 0; border-bottom: 1px solid var(--bg-input);
     font-size: 14px;
 }
 .daily-item:last-child { border: none; }
+
+/* Requirement Items - Rank List */
+.requirements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: var(--bg-input);
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.requirement-item:last-child { border: none; }
+
+.requirement-item.current-rank {
+    background: rgba(0, 122, 255, 0.08);
+    border: 1.5px solid rgba(0, 122, 255, 0.25);
+}
+
+.requirement-item.achieved {
+    opacity: 1;
+}
+
+.requirement-item.locked {
+    opacity: 0.5;
+}
+
+.requirement-rank-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.requirement-name {
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+    text-align: left;
+}
+
+.requirement-value {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.requirement-status {
+    font-size: 14px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.requirement-level-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--ios-blue);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.requirement-item.locked .requirement-level-badge {
+    background: #C7C7CC;
+}
+
+.requirement-item.current-rank .requirement-level-badge {
+    background: var(--ios-blue);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
 .daily-date { color: var(--text-secondary); }
 .daily-value { font-weight: 600; }
 

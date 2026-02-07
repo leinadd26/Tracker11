@@ -104,6 +104,26 @@ a {
     flex-direction: column;
     padding-top: 20px;
     overflow: hidden;
+    min-height: 0;
+}
+
+/* Scroll-Fade am unteren Rand */
+.todo-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--bg-app));
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.todo-wrapper.has-overflow::after {
+    opacity: 1;
 }
 
 /* -- Header with count + toggle -- */
@@ -166,12 +186,13 @@ a {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 4px 0;
+    padding: 4px 0 36px 0;
     overflow-y: auto;
     overflow-x: hidden;
     flex-grow: 1;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    min-height: 0;
 }
 
 .todo-list::-webkit-scrollbar {
@@ -456,6 +477,7 @@ a {
 
 /* Entferne die alten Gradienten-Hintergründe, falls sie noch stören */
 .stats-card .card-icon,
+.gymlog-card .card-icon,
 .finance-card .card-icon,
 .routine-card .card-icon {
     background: none !important;
