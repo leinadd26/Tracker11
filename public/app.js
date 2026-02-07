@@ -481,20 +481,40 @@ function setupSwipeToDelete() {
 async function loadRoutinesFromSheets() {
     if (isUserTyping) return;
     const scriptURL = localStorage.getItem('lifeStatsSheetsSecret');
-    if (!scriptURL) return;
+    if (!scriptURL) {
+        console.log('[v0] Kein scriptURL in localStorage - Sync uebersprungen');
+        return;
+    }
 
     try {
         const url = `${scriptURL}?action=getRoutines&secret=Dzamb2604:&date=${getTodayKey()}&t=${Date.now()}`;
-        const response = await fetch(url);
-        const data = await response.json();
+        console.log('[v0] Lade Routinen... Datum:', getTodayKey());
+        const response = await fetch(url, { redirect: 'follow' });
+        console.log('[v0] Response Status:', response.status, response.statusText);
+
+        const rawText = await response.text();
+        console.log('[v0] Raw Response (erste 300 Zeichen):', rawText.substring(0, 300));
+
+        let data;
+        try {
+            data = JSON.parse(rawText);
+        } catch (parseErr) {
+            console.error('[v0] JSON Parse Fehler! Response ist kein gueltiges JSON:', parseErr);
+            return;
+        }
 
         if (data.ok) {
+            console.log('[v0] Routinen OK. Headers:', data.headers);
+            console.log('[v0] Heutige Werte:', data.values);
+            console.log('[v0] Anzahl allValues Zeilen:', (data.allValues || []).length);
             fullSheetData = data.allValues || [];
             sheetHeaders = data.headers || [];
             applyRoutineData(data.values, data.headers);
+        } else {
+            console.error('[v0] Routinen Antwort NICHT OK:', data);
         }
     } catch (e) {
-        console.error('Sync-Fehler:', e);
+        console.error('[v0] loadRoutinesFromSheets FEHLER:', e.message, e);
     }
 }
 
