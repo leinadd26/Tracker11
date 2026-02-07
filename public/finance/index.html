@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#F2F2F7">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Finanzen</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="mobile-wrapper">
+    
+    <header class="app-header">
+        <div class="nav-top">
+            <a href="../index.html" class="back-link">❮ Zurück</a>
+            <div class="header-actions">
+                <button class="icon-btn" id="pushBtn">☁️</button>
+                <button class="icon-btn" id="syncBtn">🔄</button>
+            </div>
+        </div>
+        <h1 class="page-title">Dein Finanz<br>Überblick.</h1>
+    </header>
+
+    <div class="glass-card period-card">
+      <button class="period-btn" id="prevMonth">❮</button>
+      <span class="period-label" id="currentPeriodLabel">Lädt...</span>
+      <button class="period-btn" id="nextMonth">❯</button>
+    </div>
+
+    <section class="kpi-grid">
+      <div class="glass-card kpi-card">
+        <span class="kpi-label">Einnahmen</span>
+        <span class="kpi-value income" id="kpiIncome">0 €</span>
+      </div>
+      <div class="glass-card kpi-card">
+        <span class="kpi-label">Ausgaben</span>
+        <span class="kpi-value expense" id="kpiExpense">0 €</span>
+      </div>
+      <div class="glass-card kpi-card">
+        <span class="kpi-label">Netto</span>
+        <span class="kpi-value" id="kpiNet">0 €</span>
+      </div>
+      <div class="glass-card kpi-card">
+        <span class="kpi-label">Marge</span>
+        <span class="kpi-value" id="kpiMargin">0%</span>
+      </div>
+    </section>
+
+    <section class="glass-card piggy-card">
+      <div class="card-header-row">
+        <div class="icon-title-wrap">
+            <div class="card-icon gradient-silver">🪙</div>
+            <span class="card-title-text">Sparschwein</span>
+        </div>
+        <button class="action-link" id="configSavingsBtn">Bearbeiten</button>
+      </div>
+      
+      <div class="piggy-content">
+          <span class="big-number" id="piggyTotal">0,00 €</span>
+          <div class="piggy-meta">
+            <span class="trend-badge" id="piggyMonth">+0 €</span>
+            <span class="sub-text" id="savingsRateLabel">Auto: 0%</span>
+          </div>
+      </div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-header-row">
+        <div class="icon-title-wrap">
+             <div class="card-icon gradient-blue">📊</div>
+             <span class="card-title-text">Budgets</span>
+        </div>
+        <button class="action-link" id="editBudgetsBtn">Bearbeiten</button>
+      </div>
+      <div id="budgetList" class="budget-list"></div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-header-row">
+        <span class="card-title-text" style="margin-left: 4px;">Verlauf</span>
+      </div>
+      <div id="ledgerList" class="ledger-list"></div>
+    </section>
+
+    <button class="fab" id="addBtn">＋</button>
+
+  </div>
+
+  <div class="modal-overlay" id="addModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Neue Buchung</h3>
+        <button class="close-btn" id="closeAdd">×</button>
+      </div>
+      <div class="segment-control">
+          <button class="seg-btn active" data-type="Ausgabe">Ausgabe</button>
+          <button class="seg-btn" data-type="Einnahme">Einnahme</button>
+      </div>
+      <br>
+      <input type="text" class="big-input" id="amount" inputmode="decimal" placeholder="0.00">
+      <select class="form-select" id="category"></select>
+      <div id="sourceGroup" style="display:none; width:100%; margin-top:10px;">
+        <input type="text" class="form-input" id="source" placeholder="Quelle (z.B. Gehalt)">
+      </div>
+      <input type="text" class="form-input" id="note" placeholder="Notiz (Optional)" style="margin-top:10px;">
+      <input type="date" class="form-input" id="date" style="margin-top:10px;">
+      <button class="btn pri btn-full" id="saveAdd" style="margin-top:20px;">Speichern</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="budgetModal"><div class="modal"><h3>Budgets</h3><button class="close-btn" id="closeBudget">×</button><div id="budgetSettingsList" class="settings-list"></div><button class="btn sec btn-full" id="openAddCatModal">+ Kategorie</button></div></div>
+  <div class="modal-overlay" id="catModal"><div class="modal"><h3>Neue Kategorie</h3><input type="text" class="form-input" id="newCatName" placeholder="Name"><input type="text" class="form-input" id="newCatLimit" placeholder="Limit" style="margin-top:10px;"><div class="actions" style="margin-top:20px;"><button class="btn sec" id="closeCat">Abbrechen</button><button class="btn pri" id="saveCat">Erstellen</button></div></div></div>
+  <div class="modal-overlay" id="savingsModal"><div class="modal"><h3>Sparrate</h3><input type="text" class="form-input" id="newSavingsRate" placeholder="z.B. 20%"><div class="actions" style="margin-top:20px;"><button class="btn sec" id="closeSavings">Zurück</button><button class="btn pri" id="saveSavings">Speichern</button></div></div></div>
+  <div class="modal-overlay" id="secretModal"><div class="modal"><h3>API Key</h3><input type="password" class="form-input" id="secretInput"><button class="btn pri btn-full" id="saveSecret" style="margin-top:10px;">Speichern</button><button class="btn sec btn-full" id="closeSecret" style="margin-top:10px;">Abbrechen</button></div></div>
+  <div class="modal-overlay" id="updateModal"><div class="modal"><h2>Info</h2><p class="modal-desc"></p><div class="actions"><button class="btn sec" id="cancelUpdate">Abbrechen</button><button class="btn pri" id="confirmUpdate">OK</button></div></div></div>
+  <div class="modal-overlay" id="syncConfirmModal"><div class="modal"><h3>Sync</h3><p>Daten laden?</p><div class="actions"><button class="btn sec" id="cancelSync">Nein</button><button class="btn pri" id="confirmSync">Ja</button></div></div></div>
+  <div class="modal-overlay" id="pushConfirmModal"><div class="modal"><h3>Backup</h3><p>Daten hochladen?</p><div class="actions"><button class="btn sec" id="cancelPush">Nein</button><button class="btn pri" id="confirmPush">Ja</button></div></div></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

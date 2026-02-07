@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#F2F2F7"> 
+  <title>Life Stats</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="mobile-wrapper">
+    
+    <header class="app-header">
+      <div class="nav-top">
+        <a href="../index.html" class="back-link">❮ Zurück</a>
+      </div>
+      <h1 class="page-title">Deine<br>Statistiken.</h1>
+    </header>
+
+    <section class="card today-card">
+      <div class="card-header">
+        <div class="header-left">
+          <div class="icon-box box-today">📆</div>
+          <h2>Heute</h2>
+        </div>
+      </div>
+      
+      <div class="today-grid" id="todayGrid">
+        <div class="today-item">
+          <span class="today-icon">☀️</span>
+          <span class="today-label">Morgen</span>
+          <span class="today-status pending" id="todayMorning">○</span>
+        </div>
+
+        <div class="today-item">
+          <span class="today-icon">🌙</span>
+          <span class="today-label">Abend</span>
+          <span class="today-status pending" id="todayEvening">○</span>
+        </div>
+
+        <div class="today-item">
+          <span class="today-icon">🏋️</span>
+          <span class="today-label">Gym</span>
+          <span class="today-status pending" id="todayGym">○</span>
+        </div>
+
+        <div class="today-item">
+          <span class="today-icon">🚫</span>
+          <span class="today-label">Fap</span>
+          <span class="today-status pending" id="todayFap">○</span>
+        </div>
+
+        <div class="today-item span-2">
+          <span class="today-icon">📵</span>
+          <span class="today-value" id="todayScreen">--</span>
+          <span class="today-label">Screen</span>
+        </div>
+
+        <div class="today-item span-2">
+          <span class="today-icon">👟</span>
+          <span class="today-value" id="todaySteps">--</span>
+          <span class="today-label">Steps</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card expandable" id="screenCard">
+      <div class="card-header clickable">
+        <div class="header-left">
+          <div class="icon-box box-screen">📵</div>
+          <h2>Screentime</h2>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="card-summary">
+        <div class="rank-display">
+          <img id="screenRankIcon" class="rank-icon" alt="Rank" src="" style="background:none; box-shadow:none;" />
+          <div class="rank-info">
+             <span class="rank-badge" id="screenRank">--</span>
+             <span class="rank-avg" id="screenAvg">Ø --</span>
+          </div>
+        </div>
+
+        <div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="screenProgress" style="width: 0%"></div>
+            </div>
+            <div class="rank-next" id="screenNext">--</div>
+        </div>
+      </div>
+
+      <div class="card-details">
+        <h4 style="font-size:12px; color:var(--text-secondary); text-transform:uppercase; margin-bottom:10px;">Anforderungen</h4>
+        <div class="requirements-list" id="screenRequirements"></div>
+        <br>
+        <h4 style="font-size:12px; color:var(--text-secondary); text-transform:uppercase; margin-bottom:10px;">Verlauf (14 Tage)</h4>
+        <div class="daily-list" id="screenDaily"></div>
+      </div>
+    </section>
+
+    <section class="card expandable" id="levelCard">
+      <div class="card-header clickable">
+        <div class="header-left">
+          <div class="icon-box box-routine">⚡</div>
+          <h2>Level</h2>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="card-summary">
+        <div class="level-display">
+          <div class="level-badge">
+            <span class="level-number" id="routineLevel">0</span>
+          </div>
+
+          <div style="display:flex; gap:15px;">
+            <div>
+              <div style="font-size:12px; color:var(--text-secondary);">Streak</div>
+              <div style="font-size:18px; font-weight:600;" id="streakDays">0</div>
+            </div>
+            <div>
+              <div style="font-size:12px; color:var(--text-secondary);">XP</div>
+              <div style="font-size:18px; font-weight:600;" id="totalPoints">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="levelProgress" style="width: 0%"></div>
+            </div>
+            <div class="level-next" id="levelNext">Next: --</div>
+        </div>
+      </div>
+
+      <div class="card-details">
+        <div class="requirements-list" id="levelRequirements"></div>
+        <br>
+        <div class="daily-list" id="levelDaily"></div>
+      </div>
+    </section>
+
+    <section class="card boss-card" id="bossCard">
+      <div class="card-header">
+        <div class="header-left">
+          <div class="icon-box box-boss">⚔️</div>
+          <h2>Wochen Boss</h2>
+        </div>
+        <span style="font-size:12px; font-weight:600; color:var(--text-secondary); background:var(--bg-input); padding:4px 8px; border-radius:6px;" id="bossWeek">KW --</span>
+      </div>
+
+      <div class="boss-display">
+        <div class="boss-hp">
+          <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:4px;">
+              <span style="color:var(--ios-red);">HP</span>
+              <span id="bossHpText">100%</span>
+          </div>
+          <div class="hp-bar">
+            <div class="hp-fill" id="bossHp" style="width: 100%"></div>
+          </div>
+        </div>
+        <div style="margin-top:10px; display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary);">
+            <div id="bossInfo">--</div>
+            <div id="bossYear">--/--</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card expandable" id="weekCard">
+      <div class="card-header clickable">
+        <div class="header-left">
+          <div class="icon-box box-week">📈</div>
+          <h2>Woche</h2>
+        </div>
+        <span class="expand-arrow">▼</span>
+      </div>
+
+      <div class="card-summary">
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+
+      <div class="card-details">
+        <div class="week-detail-list" id="weekDetailList"></div>
+      </div>
+    </section>
+
+    <section class="card entry-card">
+      <div class="card-header">
+        <div class="header-left">
+          <div class="icon-box box-entry">✏️</div>
+          <h2>Log</h2>
+        </div>
+      </div>
+
+      <div class="entry-form">
+        <div class="entry-row">
+          <label>Datum</label>
+          <input type="date" id="entryDate">
+        </div>
+
+        <div class="entry-row">
+          <label>Screen</label>
+          <input type="time" id="entryScreen" step="300">
+        </div>
+
+        <div class="entry-row">
+          <label>Steps</label>
+          <input type="text" id="entrySteps" inputmode="numeric" placeholder="0" />
+        </div>
+
+        <div class="entry-row">
+          <label>Gewicht</label>
+          <input type="text" id="entryWeight" inputmode="decimal" placeholder="kg" />
+        </div>
+
+        <div class="entry-row">
+          <label>Workout</label>
+          <select id="entryWorkout">
+            <option value="Pause">Pause</option>
+            <option value="Upper">Upper</option>
+            <option value="Lower">Lower</option>
+          </select>
+        </div>
+
+        <div class="entry-toggles">
+          <button class="toggle-btn" id="toggleMorning" data-active="false">☀️ Morgen</button>
+          <button class="toggle-btn" id="toggleEvening" data-active="false">🌙 Abend</button>
+          <button class="toggle-btn" id="toggleGym" data-active="false">🏋️ Gym</button>
+          <button class="toggle-btn fap-btn" id="toggleFap" data-active="false">🚫 Fap</button>
+        </div>
+
+        <button class="save-btn" id="saveEntry">Speichern</button>
+
+        <div class="sync-row">
+          <button class="secondary-btn" id="pullSheetsBtn">⬇️ Import</button>
+          <button class="secondary-btn" id="pushTodayBtn">☁️ Export</button>
+        </div>
+
+        <div class="sync-row">
+          <button class="danger-btn" id="resetSecretBtn">Key Reset</button>
+          <button class="danger-btn" id="resetData">Reset Data</button>
+        </div>
+
+        <div class="sync-status" id="syncStatus"></div>
+      </div>
+    </section>
+
+    <section class="card month-card">
+      <div class="card-header">
+        <div class="header-left">
+          <div class="icon-box box-stats">📊</div>
+          <h2>Statistik</h2>
+        </div>
+      </div>
+
+      <div class="stats-controls" style="margin-bottom:15px;">
+        <select class="entry-row" style="width:100%; margin-bottom:10px;" id="monthSelect">
+          <option value="total">Gesamtzeitraum</option>
+        </select>
+
+        <div style="background:var(--bg-input); padding:4px; border-radius:10px; display:flex;" id="viewToggle">
+          <button class="toggle-btn view-btn active" style="flex:1; padding:8px; border-radius:8px;" data-view="avg">Ø Avg</button>
+          <button class="toggle-btn view-btn" style="flex:1; padding:8px; border-radius:8px;" data-view="sum">Σ Sum</button>
+        </div>
+      </div>
+
+      <div class="stat-card expandable" style="padding: 12px 0; border-top:1px solid var(--bg-input);">
+        <div class="stat-header clickable" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;">
+              <span style="font-size:20px;">🏋️</span>
+              <div style="display:flex; flex-direction:column;">
+                <span class="month-value" id="statGym" style="font-weight:700;">--</span>
+                <span style="font-size:11px; color:var(--text-secondary);" id="labelGym">Gym</span>
+              </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="card-details">
+          <div class="daily-list" id="gymDaily"></div>
+        </div>
+      </div>
+
+      <div class="stat-card expandable" style="padding: 12px 0; border-top:1px solid var(--bg-input);">
+        <div class="stat-header clickable" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;">
+              <span style="font-size:20px;">🚫</span>
+              <div style="display:flex; flex-direction:column;">
+                <span class="month-value" id="statFap" style="font-weight:700;">--</span>
+                <span style="font-size:11px; color:var(--text-secondary);" id="labelFap">Fap</span>
+              </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="card-details">
+          <div class="daily-list" id="fapDaily"></div>
+        </div>
+      </div>
+
+      <div class="stat-card expandable" style="padding: 12px 0; border-top:1px solid var(--bg-input);">
+        <div class="stat-header clickable" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;">
+              <span style="font-size:20px;">👟</span>
+              <div style="display:flex; flex-direction:column;">
+                <span class="month-value" id="statSteps" style="font-weight:700;">--</span>
+                <span style="font-size:11px; color:var(--text-secondary);" id="labelSteps">Schritte</span>
+              </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="card-details">
+          <div class="daily-list" id="stepsDaily"></div>
+        </div>
+      </div>
+
+      <div class="stat-card expandable" style="padding: 12px 0; border-top:1px solid var(--bg-input);">
+        <div class="stat-header clickable" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; gap:10px; align-items:center;">
+              <span style="font-size:20px;">⚖️</span>
+              <div style="display:flex; flex-direction:column;">
+                <span class="month-value" id="weightDisplay" style="font-weight:700;">--</span>
+                <span style="font-size:11px; color:var(--text-secondary);" id="labelWeight">Gewicht</span>
+              </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="card-details">
+          <div class="daily-list" id="weightDaily"></div>
+        </div>
+      </div>
+
+    </section>
+
+  </div> <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Seelenflamme</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app" id="mainApp">
+        <header>
+            <a href="../index.html" class="back-btn">‹ Home</a>
+
+            <div class="streak">
+                <span class="streak-icon">🔥</span>
+                <span class="streak-count" id="streakCount">0</span>
+                <span class="streak-label">Tage</span>
+            </div>
+            <button class="icon-btn" id="settingsBtn">⚙️</button>
+        </header>
+
+        <main>
+            <div class="flame-container" id="flameContainer">
+                <div class="flame-glow" id="flameGlow"></div>
+                <div class="flame">
+                    <div class="flame-inner" id="flameInner"></div>
+                    <div class="flame-gray" id="flameGray"></div>
+                </div>
+                <div class="percentage" id="percentage">100%</div>
+                <div class="time-left" id="timeLeft">Noch 24h 0m</div>
+                <div class="schedule-info" id="scheduleInfo" style="font-size: 11px; color: #8E8E93; margin-top: 4px;"></div>
+            </div>
+
+            <div class="verse-container">
+                <p class="verse" id="verse">Lade Vers...</p>
+                <p class="verse-ref" id="verseRef"></p>
+            </div>
+        </main>
+
+        <section class="activities">
+            <h2>Nähre deine Seele</h2>
+            <div class="activity-grid" id="activityGrid"></div>
+            
+            <div class="dev-tools" id="devTools" style="margin-top: 20px; display: none; gap: 8px; justify-content: center;">
+                <button class="dev-btn" data-delta="-0.25" style="padding: 8px; font-size: 12px;">−15m</button>
+                <button class="dev-btn" data-delta="-1" style="padding: 8px; font-size: 12px;">−1h</button>
+                <button class="dev-btn" id="devSpeedBtn" style="padding: 8px; font-size: 12px;">⏩ 1x</button>
+            </div>
+        </section>
+    </div>
+
+    <div class="settings-page" id="settingsPage">
+        <header class="settings-header">
+            <button class="back-btn" id="backBtn" style="border:none; background:none; font-size:17px;">Fertig</button>
+            <h1 style="font-size: 17px; font-weight: 600;">Einstellungen</h1>
+            <div style="width: 44px;"></div>
+        </header>
+
+        <div class="settings-content">
+            <div class="settings-section">
+                <h3>⏱️ Gesamtzeit (Max)</h3>
+                <div class="settings-group">
+                    <div class="time-setting">
+                        <input type="range" id="maxHoursSlider" min="6" max="48" value="24">
+                        <span class="time-value" id="maxHoursValue">24 Stunden</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>📋 Deine Aktivitäten</h3>
+                <div class="settings-group" id="activitiesList">
+                    </div>
+                <button class="add-btn" id="addActivityBtn" style="width: calc(100% - 32px); margin: 15px 16px; padding: 12px; border-radius: 12px; background: #fff; border: 1px dashed #007AFF; color: #007AFF; font-weight: 600;">+ Neue hinzufügen</button>
+            </div>
+
+            <div class="settings-section">
+                <h3>🧪 Entwickler</h3>
+                <div class="settings-group">
+                    <div class="toggle-row">
+                        <span>Dev-Tools</span>
+                        <label class="switch">
+                            <input type="checkbox" id="devModeToggle">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>🔄 System</h3>
+                <div class="settings-group">
+                    <div class="update-meta">
+                        <span>Version</span>
+                        <span id="appVersion" style="color: #8E8E93;">1.0.0</span>
+                    </div>
+                </div>
+                <button class="reset-btn" id="resetBtn" style="width: calc(100% - 32px); margin: 15px 16px; padding: 12px; border-radius: 12px; background: #fff; border: none; color: #FF3B30; font-weight: 600;">Alle Daten löschen</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h2 id="modalTitle" style="font-size: 17px; margin-bottom: 15px; text-align: center;">Aktivität</h2>
+            
+            <div class="form-group" style="margin-bottom: 15px;">
+                <div class="emoji-picker" id="emojiPicker">
+                    <span class="emoji-option" data-emoji="🙏">🙏</span>
+                    <span class="emoji-option" data-emoji="📖">📖</span>
+                    <span class="emoji-option" data-emoji="⛪">⛪</span>
+                    <span class="emoji-option" data-emoji="🕊️">🕊️</span>
+                    <span class="emoji-option" data-emoji="❤️">❤️</span>
+                    <span class="emoji-option" data-emoji="🌅">🌅</span>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <input type="text" id="activityName" placeholder="Name" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+            </div>
+
+            <div class="form-group">
+                <label style="font-size: 12px; color: #8E8E93;">Stunden: <span id="hoursDisplay">2</span>h</label>
+                <input type="range" id="activityHours" min="0.5" max="12" step="0.5" value="2">
+            </div>
+
+            <div class="modal-buttons" style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn-cancel" id="cancelModal" style="flex:1;">Abbruch</button>
+                <button class="btn-save" id="saveModal" style="flex:1;">Sichern</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#F2F2F7">
+  <title>Routine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mobile-wrapper">
+
+    <header class="app-header">
+        <div class="nav-top">
+            <a href="../index.html" class="back-link">❮ Zurück</a>    
+        </div>
+        <h1 class="page-title">Deine<br>Routine.</h1>
+    </header>
+
+    <section class="card">
+      <div class="card-header">
+        <div class="icon-box box-settings">⚙️</div>
+        <h2>Einstellung</h2>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Anker (Basis)</label>
+        <div class="input-wrapper">
+            <select id="action">
+              <optgroup label="Morgenroutine">
+                <option value="morning-0">Aufstehen & Trinken</option>
+                <option value="morning-1">Badezimmer</option>
+                <option value="morning-2">Anziehen & Packen</option>
+                <option value="morning-3">Tag planen</option>
+                <option value="morning-4">Bibel & Gebet</option>
+                <option value="morning-5">Frühstück</option>
+              </optgroup>
+              <optgroup label="Abendroutine">
+                <option value="evening-0">Bad / Duschen</option>
+                <option value="evening-1">Schlafbereit</option>
+                <option value="evening-2">Bibel lesen</option>
+                <option value="evening-3">Schlafen</option>
+              </optgroup>
+            </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Startzeit</label>
+        <div class="input-wrapper">
+          <input type="time" id="newTime" value="06:00">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Schlafdauer (Ziel)</label>
+        <div class="input-wrapper">
+          <input type="time" id="sleepDuration" value="08:30" step="300">
+        </div>
+        <div class="sleep-hint" id="sleepHint">Ziel: 8h 30min</div>
+      </div>
+
+      <div class="hint-box">
+        <span>💡</span>
+        <div>Ändere den Anker, um deinen ganzen Tag automatisch zu verschieben.</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div class="icon-box box-plan">📅</div>
+        <h2>Neuer Plan</h2>
+      </div>
+      
+      <div id="routineListContainer" class="routine-list"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div class="icon-box box-time">⏰</div>
+        <h2>Zeiten</h2>
+      </div>
+      
+      <div class="times-grid">
+        <div class="time-card">
+            <span class="tc-label">☀️ Aufwachen</span>
+            <span class="tc-value" id="wakeTime">06:00</span>
+        </div>
+        <div class="time-card">
+            <span class="tc-label">🌙 Schlafen</span>
+            <span class="tc-value" id="sleepTime">21:30</span>
+        </div>
+      </div>
+    </section>
+
+    <button class="confirm-btn" id="confirmBtn">
+        <span class="confirm-text">Plan Übernehmen</span>
+    </button>
+    <div class="success-msg" id="successMessage">✅ Gespeichert!</div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

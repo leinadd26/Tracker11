@@ -1,0 +1,258 @@
+/* ============================================
+   ROUTINE SHIFTER - Integrated iOS Style
+   Matches Finance, Gym & Life Stats
+   ============================================ */
+
+:root {
+    /* Backgrounds */
+    --bg-app: #F2F2F7;
+    --bg-card: #FFFFFF;
+    --bg-input: #F2F2F7;
+    --bg-pressed: #E5E5EA;
+
+    /* Text */
+    --text-primary: #000000;
+    --text-secondary: #3C3C4399;
+    --text-muted: #3C3C434D;
+
+    /* Accents */
+    --ios-blue: #007AFF;
+    --ios-purple: #AF52DE;
+    --ios-indigo: #5856D6;
+    --ios-orange: #FF9500;
+    --ios-green: #34C759;
+
+    /* Dimensions */
+    --border-radius: 22px;
+    --card-padding: 20px;
+    --side-padding: 20px;
+
+    /* Shadows */
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --transition: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ============================================
+   BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { height: 100%; overscroll-behavior: none; }
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-app);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    
+    overscroll-behavior: none;
+}
+
+.mobile-wrapper {
+    padding: 40px var(--side-padding) 100px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 100vh;
+}
+.mobile-wrapper::-webkit-scrollbar { display: none; }
+
+/* ============================================
+   HEADER UPDATE (Fixed & Bigger)
+   ============================================ */
+.app-header { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+
+/* Anpassung der Header-Inhalte für die neue Höhe */
+.nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.nav-left, .header-right { flex: 1; display: flex; align-items: center; }
+.header-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    flex: 2;
+}
+
+.back-link {
+    font-size: 17px;
+    color: var(--ios-blue);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 5px;
+}
+/* ============================================
+   CARDS & ICONS
+   ============================================ */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.box-settings { background: linear-gradient(135deg, #8E8E93 0%, #636366 100%); }
+.box-plan { background: linear-gradient(135deg, #AF52DE 0%, #5856D6 100%); } /* Purple/Indigo */
+.box-time { background: linear-gradient(135deg, #FF9500 0%, #FF3B30 100%); } /* Orange/Red */
+
+.card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; }
+
+.input-wrapper {
+    background: var(--bg-input);
+    border-radius: 12px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+select, input[type="time"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    color: var(--ios-blue);
+    font-weight: 500;
+    font-family: inherit;
+    -webkit-appearance: none;
+    outline: none;
+    text-align: right; /* iOS style right aligned values */
+}
+/* Left align label logic needs inputs to be full width but text aligned right */
+
+.sleep-hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    text-align: right;
+}
+
+.hint-box {
+    margin-top: 10px;
+    background: rgba(0, 122, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--ios-blue);
+    line-height: 1.4;
+    display: flex; gap: 8px;
+}
+
+/* ============================================
+   ROUTINE LIST (New)
+   ============================================ */
+.routine-list { display: flex; flex-direction: column; }
+
+.section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-app);
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin: 12px 0 8px 0;
+    display: inline-block;
+    align-self: flex-start;
+}
+.section-title:first-child { margin-top: 0; }
+
+.routine-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--bg-input);
+}
+.routine-row:last-child { border-bottom: none; }
+
+.r-time { font-family: "SF Mono", "Menlo", monospace; font-weight: 600; color: var(--text-primary); font-size: 15px; }
+.r-name { color: var(--text-secondary); font-size: 15px; }
+.r-name.sleep-row { color: var(--ios-purple); font-weight: 600; }
+
+/* ============================================
+   WAKE / SLEEP DISPLAY
+   ============================================ */
+.times-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.time-card {
+    background: var(--bg-input);
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.tc-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); }
+.tc-value { font-size: 24px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; }
+
+/* ============================================
+   ACTION BUTTON
+   ============================================ */
+.confirm-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--text-primary); /* Black button */
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform 0.1s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.confirm-btn:active { transform: scale(0.98); }
+
+.confirm-btn.success { background: var(--ios-green); }
+
+.success-msg {
+    text-align: center;
+    font-size: 13px;
+    color: var(--ios-green);
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-weight: 500;
+}
+.success-msg.show { opacity: 1; }

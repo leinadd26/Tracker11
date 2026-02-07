@@ -1,0 +1,332 @@
+/* ============================================
+   LIFE STATS - Integrated iOS Style
+   Matches Main App & Finance Design Language
+   ============================================ */
+
+:root {
+    /* Backgrounds */
+    --bg-app: #F2F2F7;
+    --bg-card: #FFFFFF;
+    --bg-input: #F2F2F7;
+    --bg-pressed: #E5E5EA;
+
+    /* Text */
+    --text-primary: #000000;
+    --text-secondary: #3C3C4399; /* 60% Black */
+    --text-muted: #3C3C434D;    /* 30% Black */
+
+    /* Accents (iOS Colors) */
+    --ios-blue: #007AFF;
+    --ios-green: #34C759;
+    --ios-red: #FF3B30;
+    --ios-orange: #FF9500;
+    --ios-purple: #AF52DE;
+    --ios-teal: #5AC8FA;
+
+    /* Dimensions */
+    --border-radius: 22px;
+    --border-radius-sm: 14px;
+    --card-padding: 20px;
+    --side-padding: 20px;
+
+    /* Shadows & Effects */
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --transition: 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ============================================
+   BASE RESET
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html { height: 100%; overscroll-behavior-y: none; }
+
+/* ============================================
+   BODY & WRAPPER UPDATE
+   ============================================ */
+body {
+    font-family: var(--font-family);
+    background: var(--bg-app);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+
+    overscroll-behavior: none; /* Kein Gummiband-Effekt */
+}
+
+.mobile-wrapper {
+    padding: 40px var(--side-padding) 100px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 100vh;
+}
+
+/* ============================================
+   HEADER UPDATE (Fixed & Bigger)
+   ============================================ */
+.app-header { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+
+.nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.back-link { font-size: 17px; color: var(--ios-blue); text-decoration: none; font-weight: 500; }
+
+.header-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    flex: 2;
+}
+
+.header-right { flex: 1; } /* Placeholder for spacing */
+
+/* ============================================
+   CARDS & ICON BOXES
+   ============================================ */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+    border: none;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.header-left { display: flex; align-items: center; gap: 14px; }
+
+/* The new Icon Box Style (Matches Finance) */
+.icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Specific Gradients */
+.box-today { background: linear-gradient(135deg, #FFCC00 0%, #FF9500 100%); }
+.box-screen { background: linear-gradient(135deg, #FF3B30 0%, #FF2D55 100%); }
+.box-routine { background: linear-gradient(135deg, #AF52DE 0%, #5856D6 100%); }
+.box-boss { background: linear-gradient(135deg, #FF3B30 0%, #800000 100%); }
+.box-week { background: linear-gradient(135deg, #34C759 0%, #30B0C7 100%); }
+.box-entry { background: linear-gradient(135deg, #8E8E93 0%, #636366 100%); }
+.box-stats { background: linear-gradient(135deg, #007AFF 0%, #5AC8FA 100%); }
+
+.card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Expand Arrow */
+.expand-arrow {
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+.expandable.open .expand-arrow { transform: rotate(180deg); }
+.clickable { cursor: pointer; }
+.clickable:active { opacity: 0.6; }
+
+/* ============================================
+   TODAY GRID
+   ============================================ */
+.today-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.today-item {
+    background: var(--bg-input);
+    border-radius: 16px;
+    padding: 12px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 6px;
+}
+
+.today-item.span-2 {
+    grid-column: span 2;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 16px;
+}
+
+.today-icon { font-size: 20px; }
+.today-label { font-size: 10px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; }
+.today-status { font-size: 18px; font-weight: 700; color: var(--text-muted); }
+.today-value { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+
+.today-status.done { color: var(--ios-green); }
+.today-status.bad { color: var(--ios-red); }
+
+/* ============================================
+   CONTENT SECTIONS (Rank, Level, Boss)
+   ============================================ */
+.card-summary { display: flex; flex-direction: column; gap: 12px; }
+
+.rank-display, .level-display { display: flex; align-items: center; gap: 16px; }
+
+.rank-icon, .level-badge {
+    width: 50px; height: 50px;
+    object-fit: contain;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-weight: 700; color: #fff;
+    background: var(--ios-blue);
+}
+
+.rank-info { display: flex; flex-direction: column; }
+.rank-badge { font-size: 16px; font-weight: 600; }
+.rank-avg { font-size: 13px; color: var(--text-secondary); }
+
+/* Progress Bars */
+.progress-bar {
+    height: 8px;
+    background: var(--bg-input);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.progress-fill {
+    height: 100%; border-radius: 4px; background: var(--ios-blue);
+    transition: width 0.5s ease;
+}
+.level-next, .rank-next { font-size: 12px; color: var(--text-secondary); text-align: right; margin-top: 4px; }
+
+/* Weekly Boss */
+.boss-hp { margin-top: 10px; }
+.hp-bar { height: 12px; background: #FFEEEE; border-radius: 6px; overflow: hidden; margin: 4px 0; }
+.hp-fill { height: 100%; background: var(--ios-red); width: 100%; transition: width 0.3s; }
+.hp-percent { font-size: 12px; font-weight: 700; color: var(--ios-red); float: right; }
+
+/* ============================================
+   WEEK GRID
+   ============================================ */
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.week-day {
+    aspect-ratio: 1/1.5;
+    background: var(--bg-input);
+    border-radius: 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 12px;
+}
+.week-day-name { font-size: 9px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px; }
+.week-day-num { font-weight: 600; }
+.week-day.today { border: 1px solid var(--ios-blue); background: #FFF; color: var(--ios-blue); }
+
+.week-day.perfect { background: rgba(52, 199, 89, 0.15); color: var(--ios-green); }
+.week-day.missed { background: rgba(255, 59, 48, 0.15); color: var(--ios-red); }
+.week-day.partial { background: rgba(255, 149, 0, 0.15); color: var(--ios-orange); }
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+.entry-form { display: flex; flex-direction: column; gap: 16px; }
+
+.entry-row {
+    background: var(--bg-input);
+    border-radius: 12px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.entry-row label { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+
+.entry-row input, .entry-row select {
+    text-align: right;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: var(--ios-blue);
+    font-weight: 500;
+    width: 60%;
+    padding: 10px 0;
+    outline: none;
+    font-family: inherit;
+}
+
+/* Toggles */
+.entry-toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.toggle-btn {
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--bg-input);
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.toggle-btn[data-active="true"] { background: var(--ios-blue); color: #FFF; }
+.toggle-btn.fap-btn[data-active="true"] { background: var(--ios-red); }
+#toggleGym[data-active="true"] { background: var(--ios-green); }
+
+/* Buttons */
+.save-btn {
+    width: 100%; padding: 16px;
+    background: var(--text-primary); /* Black like Finance FAB */
+    color: #FFF;
+    border: none; border-radius: 16px;
+    font-size: 17px; font-weight: 600;
+    cursor: pointer; margin-top: 10px;
+}
+.save-btn:active { transform: scale(0.98); }
+
+.sync-row { display: flex; gap: 10px; margin-top: 10px; }
+.secondary-btn, .danger-btn {
+    flex: 1; padding: 12px;
+    border-radius: 12px;
+    font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer;
+}
+.secondary-btn { background: #E5E5EA; color: #000; }
+.danger-btn { background: rgba(255,59,48,0.1); color: var(--ios-red); }
+
+/* ============================================
+   DETAILS & LISTS
+   ============================================ */
+.card-details { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--bg-input); display: none; }
+.expandable.open .card-details { display: block; animation: slideDown 0.3s ease; }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+.daily-item, .requirement-item {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid var(--bg-input);
+    font-size: 14px;
+}
+.daily-item:last-child { border: none; }
+.daily-date { color: var(--text-secondary); }
+.daily-value { font-weight: 600; }
+

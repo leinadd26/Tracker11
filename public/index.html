@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#F2F2F7"> 
+    <title>Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="mobile-wrapper">
+        
+        <header class="app-header">
+            <div class="nav-top">
+                <span id="greeting" class="greeting-text">Guten Morgen!</span>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    
+              <button id="secretBtn" style="opacity: 0.25; background: none; border: none; font-size: 1.1rem; cursor: pointer; padding: 5px;">🔑</button>
+    </div>
+            </div>
+            <h1 class="page-title">Hier ist dein Überblick<br>für heute.</h1>
+            
+            <span style="color: #8E8E93; font-size: 12px; margin-top: 15px; font-weight: 600;">
+                <script>document.write(new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}));</script>
+            </span>
+        </header>
+
+        <section class="todo-wrapper">
+            <div class="todo-header">
+                <div class="todo-progress-info">
+                    <span class="todo-count" id="todoCount">0 Aufgaben</span>
+                    <span class="todo-done-count" id="todoDoneCount"></span>
+                </div>
+                <button id="toggleDoneBtn" aria-label="Erledigte ein/ausblenden"></button>
+            </div>
+            <div class="todo-progress-bar" id="todoProgressBar">
+                <div class="todo-progress-fill" id="todoProgressFill"></div>
+            </div>
+            <div class="todo-list" id="todoList">
+                <div class="todo-empty" id="todoEmpty">
+                    <span class="todo-empty-icon">&#10003;</span>
+                    <span class="todo-empty-text">Alles erledigt!</span>
+                </div>
+                <div class="todo-item input-wrapper" id="inputWrapper">
+                    <span class="checkmark" style="border-style: dotted; opacity: 0.3;"></span>
+                    <input type="text" id="newTodoInput" placeholder="Neue Aufgabe..." autocomplete="off">
+                </div>
+            </div>
+        </section>
+
+        <main class="menu-grid">
+            <a href="stats/index.html" class="glass-card stats-card">
+                <div class="card-arrow">↗</div>
+                <div class="card-icon">
+                    <img src="icons/Stats.png" alt="Stats">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Life Stats</span>
+                </div>
+            </a>
+
+            <a href="gymlog/index.html" class="glass-card gymlog-card">
+                <div class="card-arrow">↗</div>
+                <div class="card-icon">
+                    <img src="icons/Gym.png" alt="Gym">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Gym Log</span>
+                </div>
+            </a>
+
+            <a href="finance/index.html" class="glass-card finance-card">
+                <div class="card-arrow">↗</div>
+                <div class="card-icon">
+                    <img src="icons/Finance.png" alt="Finance">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Finanzen</span>
+                </div>
+            </a>
+
+            <a href="routine/index.html" class="glass-card routine-card">
+                <div class="card-arrow">↗</div>
+                <div class="card-icon">
+                    <img src="icons/Routine.png" alt="Routine">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">Routine</span>
+                </div>
+            </a>
+        </main>
+
+        <div id="secretModal" class="modal-overlay">
+            <div class="modal">
+                <h3>🔐 Sheets Secret</h3>
+                <input type="password" id="secretInput" placeholder="Key eingeben...">
+                <div class="actions">
+                    <button id="closeSecretBtn" class="btn sec">Abbrechen</button>
+                    <button id="saveSecretBtn" class="btn pri">Speichern</button>
+                </div>
+                <button id="deleteSecretBtn" class="btn danger-link">Löschen</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

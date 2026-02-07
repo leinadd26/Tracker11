@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Gym Log</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <div class="mobile-wrapper">
+    
+    <header class="app-header">
+      <div class="nav-top">
+        <a href="../index.html" class="back-link">❮ Zurück</a>
+        <button class="icon-btn" id="reloadBtn">↻</button>
+      </div>
+      <h1 class="page-title">Dein Gym<br>Logbuch.</h1>
+    </header>
+
+    <section class="glass-card">
+      <div class="card-header-row">
+        <div class="icon-title-wrap">
+          <div class="card-icon gradient-green">🔍</div>
+          <span class="card-title-text">Filter</span>
+        </div>
+      </div>
+      
+      <div class="filter-row">
+        <label class="filter-label">Monat</label>
+        <select id="monthFilter" class="filter-select">
+          <option value="all">Insgesamt</option>
+        </select>
+      </div>
+      
+      <div style="height:1px; background:rgba(0,0,0,0.05); margin:0 12px;"></div>
+
+      <div class="filter-row">
+        <label class="filter-label">Split</label>
+        <select id="workoutFilter" class="filter-select">
+          <option value="all">Alle</option>
+          <option value="Upper">Upper</option>
+          <option value="Lower">Lower</option>
+        </select>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+            <span class="summary-val" id="countAll">0</span>
+            <span class="summary-lbl">Total</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-val" id="countShown">0</span>
+            <span class="summary-lbl">Ansicht</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="list-container">
+      <div class="list" id="gymList"></div>
+      
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <p>Keine Einträge gefunden.</p>
+        <a href="../stats/index.html" style="color:var(--accent-blue)">Zu Life Stats &rarr;</a>
+      </div>
+    </section>
+
+  </div>
+
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
