@@ -456,6 +456,7 @@ a {
 
 /* Entferne die alten Gradienten-Hintergründe, falls sie noch stören */
 .stats-card .card-icon,
+.gymlog-card .card-icon,
 .finance-card .card-icon,
 .routine-card .card-icon {
     background: none !important;
